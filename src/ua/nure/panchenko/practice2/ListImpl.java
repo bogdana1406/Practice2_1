@@ -8,14 +8,12 @@ public class ListImpl implements List {
 
     private Node head;
 
-    public ListImpl()
-    {
+    public ListImpl() {
         head = null;
     }
 
     @Override
-    public void addFirst(Object element)
-    {
+    public void addFirst(Object element) {
         head = new Node(element, head);
     }
 
@@ -25,7 +23,9 @@ public class ListImpl implements List {
             addFirst(element);
         } else {
             Node tmp = head;
-            while(tmp.next != null) tmp = tmp.next;
+            while(tmp.next != null) {
+                tmp = tmp.next;
+            }
             tmp.next = new Node(element, null);
         }
     }
@@ -48,32 +48,39 @@ public class ListImpl implements List {
         }
 
         if (prev == null) {
-            throw new NullPointerException();
+            throw new IllegalArgumentException();
         }
          prev.next = null;
     }
 
     @Override
     public Object getFirst() {
-        if(head == null) throw new NoSuchElementException();
+        if(head == null) {
+            throw new NoSuchElementException();
+        }
         return head.data;
     }
 
     @Override
     public Object getLast() {
-        if(head == null) throw new NoSuchElementException();
+        if(head == null) {
+            throw new NoSuchElementException();
+        }
         Node tmp = head;
-        while(tmp.next != null) tmp = tmp.next;
+        while(tmp.next != null) {
+            tmp = tmp.next;
+        }
         return tmp.data;
     }
 
     @Override
     public Object search(Object element) {
         Object find = null;
-        for(Object tmp : this)
-            if(tmp.equals(element)) {
+        for(Object tmp : this) {
+            if (tmp.equals(element)) {
                 find = element;
             }
+        }
         return find;
     }
 
@@ -81,7 +88,7 @@ public class ListImpl implements List {
     public boolean remove(Object element) {
         boolean canRemove;
         if(head == null) {
-            throw new NoSuchElementException();
+            throw new IllegalArgumentException();
         }
         if( head.data.equals(element) ) {
             head = head.next;
@@ -97,7 +104,7 @@ public class ListImpl implements List {
                 canRemove = false;
             } else {
                 if (prev == null) {
-                    throw new NullPointerException();
+                    throw new IllegalArgumentException();
                 }
                 prev.next = cur.next;
                 canRemove = true;
@@ -155,16 +162,14 @@ public class ListImpl implements List {
     private class LinkedListIterator  implements Iterator {
         private Node nextNode;
         private Object next;
-        boolean canBeRemoved;
+        private boolean canBeRemoved;
 
-        public LinkedListIterator()
-        {
+        public LinkedListIterator() {
             nextNode = head;
         }
 
         @Override
-        public boolean hasNext()
-        {
+        public boolean hasNext() {
             return nextNode != null;
         }
 
@@ -201,7 +206,7 @@ public class ListImpl implements List {
                 throw new IllegalStateException();
             }
             if (prev == null) {
-                throw new NullPointerException();
+                throw new IllegalArgumentException();
             }
             prev.next = cur.next;
             canBeRemoved = false;

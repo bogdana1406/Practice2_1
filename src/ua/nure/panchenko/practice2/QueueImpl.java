@@ -5,10 +5,10 @@ import java.util.NoSuchElementException;
 
 public class QueueImpl implements Queue {
     private static final int DEFAULT_CAPACITY = 10;
-    private int cap,	    // total number of elements in the queue
-                size,		// current number of elements
-                front,  	// front index
-                back;		// back index
+    private int cap;
+    private int size;
+    private int front;
+    private int back;
     private Object[] values;
 
     public QueueImpl() {
@@ -41,8 +41,7 @@ public class QueueImpl implements Queue {
     public Object top() {
         if (isEmpty()) {
             throw new NoSuchElementException();
-        }
-        else {
+        } else {
             return values[front%cap];
         }
     }
@@ -52,7 +51,9 @@ public class QueueImpl implements Queue {
         for(int i = 0; i < cap; i++) {
             values[i] = null;
         }
-        size = 0; back = -1; front = 0;
+        size = 0;
+        back = -1;
+        front = 0;
     }
 
     @Override
@@ -100,24 +101,22 @@ public class QueueImpl implements Queue {
         return new QueueIterator();
     }
 
-    private class QueueIterator implements Iterator
-    {
+    private class QueueIterator implements Iterator {
         private int index;
 
-        private boolean canBeRemoved = false;
+        private boolean canBeRemoved;
 
-        public QueueIterator()
-        {
+        public QueueIterator() {
             index = front;
         }
 
-        public boolean hasNext( )
-        {
+        @Override
+        public boolean hasNext() {
             return index <= back;
         }
 
-        public Object next( )
-        {
+        @Override
+        public Object next() {
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
@@ -125,8 +124,8 @@ public class QueueImpl implements Queue {
             return values[(index++)%cap];
         }
 
-        public void remove( )
-        {
+        @Override
+        public void remove() {
             if (!canBeRemoved) {
                 throw new IllegalStateException();
             }

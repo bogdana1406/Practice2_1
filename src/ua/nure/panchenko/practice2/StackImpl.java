@@ -6,7 +6,7 @@ import java.util.NoSuchElementException;
 public class StackImpl implements Stack {
 
     private Node top;
-    int size;
+    private int size;
 
     public StackImpl() {
         top = null;
@@ -65,7 +65,7 @@ public class StackImpl implements Stack {
             tmp = tmp.next;
             i++;
         }
-        StringBuffer sb = new StringBuffer("[");
+        StringBuilder sb = new StringBuilder("[");
         for (int j = arr.length - 1; j > 0; j--) {
             if (arr[j] != null) {
                 sb.append(arr[j] + ", ");
@@ -81,15 +81,16 @@ public class StackImpl implements Stack {
     }
 
     private static class Node {
-        public Object data;
-        public Node next;
+        private Object data;
+        private Node next;
 
         public Node(Object data) {
             this(data, null );
         }
 
         public Node(Object data, Node n) {
-            this.data = data; next = n;
+            this.data = data;
+            next = n;
         }
     }
 
@@ -97,7 +98,7 @@ public class StackImpl implements Stack {
 
         private Node nextNode;
         private Object next;
-        boolean canBeRemoved;
+        private boolean canBeRemoved;
 
         public StackIterator() {
             nextNode = top;
@@ -141,7 +142,7 @@ public class StackImpl implements Stack {
                 throw new IllegalStateException();
             }
             if (prev == null) {
-                throw new NullPointerException();
+                throw new IllegalArgumentException();
             }
             prev.next = cur.next;
             canBeRemoved = false;

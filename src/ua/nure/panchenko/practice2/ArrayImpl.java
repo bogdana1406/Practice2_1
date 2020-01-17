@@ -19,10 +19,13 @@ public class ArrayImpl implements Array {
     public void set(int index, Object element) {
         Object[] temp = values;
         values = new Object[temp.length];
-        System.arraycopy(temp, 0, values, 0, index);
+        for (int i = 0; i < index; i++) {
+            values[i] = temp[i];
+        }
         values[index] = element;
-        System.arraycopy(temp, index + 1, values, index + 1, temp.length - index -1);
-
+        for (int i = index + 1; i < temp.length; i++) {
+            values[i] = temp[i];
+        }
     }
 
     @Override
@@ -87,9 +90,6 @@ public class ArrayImpl implements Array {
     private class IteratorImpl implements Iterator<Object> {
 
         private int iterator = -1;
-
-        public IteratorImpl() {
-        }
 
         @Override
         public boolean hasNext() {

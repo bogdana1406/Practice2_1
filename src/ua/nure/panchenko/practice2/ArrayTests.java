@@ -8,7 +8,7 @@ public class ArrayTests {
 		test13();
 	}
 
-	private static void test() {
+	private static void test1() {
 
 		Array array = new ArrayImpl();
 		Class c = array.getClass();
